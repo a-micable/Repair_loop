@@ -38,6 +38,13 @@ def main(argv: list[str] | None = None) -> int:
     eval_p.add_argument("--task", action="append", default=[])
     eval_p.add_argument("--iters", type=int, default=5)
 
+    bench_p = sub.add_parser("bench", help="multi-model bakeoff")
+    bench_p.add_argument("--model", action="append", dest="models", default=[])
+    bench_p.add_argument("--task", action="append", default=[])
+    bench_p.add_argument("--pipeline", action="store_true")
+    bench_p.add_argument("--iters", type=int, default=4)
+    bench_p.add_argument("--out", default="runs/bakeoff.json")
+
     args = p.parse_args(argv)
 
     if args.cmd == "tasks":
@@ -58,6 +65,19 @@ def main(argv: list[str] | None = None) -> int:
             argv2.extend(["--task", t])
         argv2.extend(["--iters", str(args.iters)])
         return eval_main(argv2)
+
+    if args.cmd == "bench":
+        from .bench import main as bench_main
+
+        argv2 = []
+        for m in args.models:
+            argv2.extend(["--model", m])
+        for t in args.task:
+            argv2.extend(["--task", t])
+        if args.pipeline:
+            argv2.append("--pipeline")
+        argv2.extend(["--iters", str(args.iters), "--out", args.out])
+        return bench_main(argv2)
 
     if args.cmd == "run":
         settings = load_settings()

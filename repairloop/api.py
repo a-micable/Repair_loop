@@ -7,7 +7,10 @@ from typing import Any
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 
+from fastapi.responses import PlainTextResponse
+
 from . import __version__
+from . import metrics
 from .config import load_settings
 from .pipeline import run_pipeline
 from .session import run_session
@@ -39,7 +42,14 @@ def health() -> dict[str, Any]:
         "nebius": s.has_nebius,
         "tavily": s.has_tavily,
         "model": s.model,
+        "tasks": len(list_tasks()),
+        "metrics": metrics.snapshot(),
     }
+
+
+@app.get("/metrics")
+def prometheus_metrics() -> PlainTextResponse:
+    return PlainTextResponse(metrics.render_prometheus(), media_type="text/plain")
 
 
 @app.get("/tasks")
