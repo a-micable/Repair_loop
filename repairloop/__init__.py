@@ -1,6 +1,6 @@
 """RepairLoop — STEM coding agent on Nebius Token Factory / NVIDIA Nemotron."""
 
-__version__ = "0.5.0"
+__version__ = "1.0.0"
 
 # keep import light; session pulls openai/httpx
 __all__ = ["__version__", "AgentResult", "run_session"]

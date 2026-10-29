@@ -1,55 +1,39 @@
 # Devpost — LabForge
 
 **Track:** Coding & Agentic Engineering  
-**Also claim:** Best Use of Tavily (if key enabled in demo)
+**Also:** Best Use of Tavily (if enabled)
 
-## Project name
+## Name
 LabForge
 
 ## Tagline
-Multi-stage STEM coding agents that must pass hidden graders — NVIDIA Nemotron on Nebius Token Factory, with Tavily-grounded research.
+A 35-task STEM coding-agent workbench: research → tools → hidden grader → critic, on NVIDIA Nemotron via Nebius Token Factory.
 
 ## Built with
-Nebius Token Factory, NVIDIA Nemotron, Tavily, Python, FastAPI, Streamlit, SQLite, Docker
+Nebius Token Factory, NVIDIA Nemotron, Tavily, Python, FastAPI, Streamlit, Docker, Prometheus
 
 ## Description
 
-### Inspiration
-I’ve been authoring terminal-bench style science/EE agent tasks. The gap I kept seeing in hackathon demos: models dump code and never face a real grader. LabForge closes that gap as a product.
-
 ### What it does
-LabForge runs a **research → code → critic** pipeline on a suite of **15 STEM tasks** (circuits, arrays, DSP, control, sensors, heat equation, stats, robotics basics).
+LabForge is a full agent workbench for scientific coding tasks. Agents must write Python, run it, and pass hidden graders across **35** oracle-backed tasks (circuits, DSP, control, optics, numerics, stats, algorithms).
 
-1. **Research** — retrieves local skill cards; optionally calls **Tavily** for formula grounding  
-2. **Coder** — tool-using Nemotron agent (`write_file`, `run_python`, `run_tests`) on Nebius Token Factory  
-3. **Grader** — hidden unit tests (stdlib sandbox)  
-4. **Critic** — if failing, a reviewer pass feeds another coding burst  
-5. **Telemetry** — JSONL transcripts + SQLite leaderboard (pass rate / tokens / cost by model)
+Pipeline: **skills + optional Tavily research** → **tool-using Nemotron coder** (write/replace/run/test) → **critic retry** → SQLite leaderboard + JSONL transcripts + Prometheus metrics. Includes bakeoff CLI, FastAPI, docker-compose, and a task authoring UI.
 
-Offline, `oracles/` + CI prove every grader is solvable without an LLM — so difficulty is intentional, not broken.
+### Why it matters
+Most hackathon “coding agents” dump untested code. LabForge mirrors terminal-bench style evaluation: **no PASS from the grader, no win.**
 
-### How I built it
-Python package `repairloop` (LabForge product surface): pipeline orchestrator, OpenAI-compatible Nebius client, workspace sandbox, skill retrieval, FastAPI, multipage Streamlit, pytest, GitHub Actions.
+### Nebius / NVIDIA
+Live Token Factory chat completions. Default Nemotron Nano; Super/Ultra via env.
 
-### Challenges
-Tool-calling reliability across models (fallback fence-parse path), keeping the sandbox honest (no numpy shortcuts), and designing tasks that are hard for agents but trivial for a correct oracle.
-
-### What’s next
-Public task packs, harsher sandboxes, and model bake-offs (Nano vs Super) on the leaderboard.
-
-## Nebius / NVIDIA
-Runtime inference via Token Factory. Default `nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B`.
-
-## Tavily
-Research stage issues a targeted search (formulas/constants), injects snippets into the coder brief. Graders never need network — Tavily is for grounding, not cheating.
+### Tavily
+Research stage issues a targeted formula search and injects results into the coder brief. Graders stay offline.
 
 ## Feedback
-Token Factory’s OpenAI-compatible tools API made the agent loop portable. Nano is great for iteration; Super for tougher tasks. Would love a hackathon “Nemotron + tools” preset and clearer rate-limit guidance for multi-agent pipelines.
+Token Factory’s OpenAI-compatible tools API made multi-tool repair practical. Nano is great for iteration cost; bakeoff mode compares models on the same suite. A hackathon preset for Nemotron+tools would help newcomers.
 
-## Video (~2:30)
-1. Home metrics (15 tasks, Nebius ready)  
-2. `pytest` / oracle PASS scroll  
-3. Run pipeline on RC task — show Tavily/skills research → tools → PASS  
-4. Leaderboard page  
-5. Flash FastAPI `/health` + `/tasks`  
-6. Repo link
+## Video
+1. Home (35 tasks)  
+2. Oracle PASS scroll  
+3. Pipeline run with tools  
+4. Leaderboard + /metrics  
+5. Repo
