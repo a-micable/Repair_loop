@@ -1,0 +1,12 @@
+{
+  "id": "zipf_rank",
+  "title": "Zipf rank-frequency fit slope",
+  "difficulty": "medium",
+  "tags": [
+    "nlp",
+    "stats"
+  ],
+  "prompt": "Implement `zipf_slope(freqs)` \u2014 OLS slope of log(freq) vs log(rank) for freqs sorted descending positive. Return slope float.",
+  "public_tests_hint": "- pure zipf-ish decreasing \u2192 negative slope",
+  "test_source": "import solution\n\ndef run():\n    freqs=[100,50,33,25,20]\n    s=solution.zipf_slope(freqs)\n    assert s<0\n"
+}

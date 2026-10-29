@@ -1,0 +1,12 @@
+{
+  "id": "vandermonde_solve",
+  "title": "Solve 3x3 Vandermonde system",
+  "difficulty": "hard",
+  "tags": [
+    "numerics",
+    "linear-algebra"
+  ],
+  "prompt": "Implement `fit_quadratic(xs, ys)` for 3 distinct xs: return (a,b,c) for y=a*x^2+b*x+c using exact elimination (stdlib). ",
+  "public_tests_hint": "- recovers known quadratic within 1e-8",
+  "test_source": "import solution\n\ndef run():\n    xs=[0.0,1.0,2.0]; ys=[1.0,2.0,5.0]  # x^2+1? wait 0->1,1->2,2->5 => a=1,b=0,c=1\n    a,b,c=solution.fit_quadratic(xs,ys)\n    assert abs(a-1)<1e-8 and abs(b-0)<1e-8 and abs(c-1)<1e-8\n"
+}

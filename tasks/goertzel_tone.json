@@ -1,0 +1,12 @@
+{
+  "id": "goertzel_tone",
+  "title": "Goertzel single-bin detector",
+  "difficulty": "hard",
+  "tags": [
+    "dsp",
+    "ee"
+  ],
+  "prompt": "Implement `goertzel_power(y, k)` \u2014 Goertzel algorithm power for DFT bin k on real list y. Return float power (q1^2+q2^2-coeff*q1*q2).",
+  "public_tests_hint": "- peak bin of a tone has higher power than neighbors",
+  "test_source": "import math\nimport solution\n\ndef run():\n    n=64; fbin=5; y=[math.sin(2*math.pi*fbin*i/n) for i in range(n)]\n    p5=solution.goertzel_power(y,5)\n    p4=solution.goertzel_power(y,4)\n    p6=solution.goertzel_power(y,6)\n    assert p5>p4 and p5>p6\n"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "beam_deflection_cantilever",
+  "title": "Cantilever end deflection",
+  "difficulty": "medium",
+  "tags": [
+    "mechanics",
+    "physics"
+  ],
+  "prompt": "Implement `cantilever_deflection(F, L, E, I)` = F*L^3/(3*E*I).",
+  "public_tests_hint": "- doubles if F doubles\n- matches analytic",
+  "test_source": "import solution\n\ndef run():\n    d=solution.cantilever_deflection(10,2,1e6,1e-4)\n    assert abs(d-10*8/(3*1e6*1e-4))<1e-12\n"
+}

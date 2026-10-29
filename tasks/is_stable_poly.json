@@ -1,0 +1,12 @@
+{
+  "id": "is_stable_poly",
+  "title": "Routh-Hurwitz order-2 stability",
+  "difficulty": "hard",
+  "tags": [
+    "control",
+    "ee"
+  ],
+  "prompt": "Implement `is_stable_quadratic(a, b, c)` for s^2 + a s + b? Wait: poly s^2 + a*s + b with c unused. Actually signature `is_stable_quadratic(a, b)` for s^2+a s+b \u2014 stable iff a>0 and b>0.",
+  "public_tests_hint": "- (2,2) True\n- (-1,1) False",
+  "test_source": "import solution\n\ndef run():\n    assert solution.is_stable_quadratic(2,2) is True\n    assert solution.is_stable_quadratic(-1,1) is False\n    assert solution.is_stable_quadratic(1,-1) is False\n"
+}

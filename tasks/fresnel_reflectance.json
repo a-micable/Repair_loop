@@ -1,0 +1,12 @@
+{
+  "id": "fresnel_reflectance",
+  "title": "Normal-incidence Fresnel reflectance",
+  "difficulty": "medium",
+  "tags": [
+    "optics",
+    "physics"
+  ],
+  "prompt": "Implement `fresnel_R(n1, n2)` amplitude reflection |r|^2 for normal incidence: r=(n1-n2)/(n1+n2).",
+  "public_tests_hint": "- n1=n2 \u2192 0\n- glass/air known value within 1e-12",
+  "test_source": "import solution\n\ndef run():\n    assert abs(solution.fresnel_R(1.5,1.5))<1e-12\n    r=(1.0-1.5)/(1.0+1.5)\n    assert abs(solution.fresnel_R(1.0,1.5)-r*r)<1e-12\n"
+}

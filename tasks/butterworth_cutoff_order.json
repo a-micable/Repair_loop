@@ -1,0 +1,12 @@
+{
+  "id": "butterworth_cutoff_order",
+  "title": "Butterworth order estimate",
+  "difficulty": "hard",
+  "tags": [
+    "dsp",
+    "filters"
+  ],
+  "prompt": "Implement `butter_order(wp, ws, rp_db, rs_db)` returning ceil of Butterworth analog order N = log(eps_s/eps_p)/log(ws/wp) with eps from ripples. Return int >=1.",
+  "public_tests_hint": "- ws>wp \u2192 finite N\n- stricter stopband \u2192 higher N",
+  "test_source": "import math\nimport solution\n\ndef run():\n    n1=solution.butter_order(1.0,2.0,1.0,20.0)\n    n2=solution.butter_order(1.0,2.0,1.0,40.0)\n    assert n1>=1 and n2>=n1\n"
+}

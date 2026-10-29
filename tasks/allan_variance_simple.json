@@ -1,0 +1,12 @@
+{
+  "id": "allan_variance_simple",
+  "title": "Two-sample Allan variance",
+  "difficulty": "hard",
+  "tags": [
+    "sensors",
+    "metrology"
+  ],
+  "prompt": "Implement `allan_var(x, tau_samples)` for a 1-D series: classic overlapping-ish two-sample form on non-overlapping blocks of size tau_samples. Return variance float.",
+  "public_tests_hint": "- constant series \u2192 ~0\n- positive for noisy series",
+  "test_source": "import solution\n\ndef run():\n    assert solution.allan_var([1,1,1,1,1,1],2)<1e-12\n    v=solution.allan_var([0,0,1,1,0,0,1,1],2)\n    assert v>0\n"
+}

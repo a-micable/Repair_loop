@@ -1,0 +1,13 @@
+{
+  "id": "rigid_body_ke",
+  "title": "Rigid body kinetic energy",
+  "difficulty": "medium",
+  "tags": [
+    "mechanics",
+    "physics",
+    "robotics"
+  ],
+  "prompt": "Implement `ke(mass, v, I, omega)` = 0.5*m*|v|^2 + 0.5*I*|omega|^2 for 3-vectors v, omega (lists).",
+  "public_tests_hint": "- zero rates \u2192 0\n- matches hand calc",
+  "test_source": "import solution\n\ndef run():\n    assert abs(solution.ke(2,[1,0,0],3,[0,2,0])-(1+6))<1e-12\n"
+}
