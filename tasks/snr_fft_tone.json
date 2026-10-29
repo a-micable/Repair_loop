@@ -1,0 +1,9 @@
+{
+  "id": "snr_fft_tone",
+  "title": "Estimate SNR of a noisy tone",
+  "difficulty": "medium",
+  "tags": ["dsp", "signal"],
+  "prompt": "Implement `estimate_snr_db(y)` in solution.py.\n\n`y` is a real list of samples: a single sinusoid plus white-ish noise.\nEstimate SNR in dB using a periodogram / DFT magnitude approach (stdlib cmath/math only).\nReturn a float (dB). Absolute accuracy within a few dB is enough.",
+  "public_tests_hint": "- returns finite float\n- within ±3 dB of true SNR on public synthetic tones",
+  "test_source": "import math\nimport solution\n\ndef _tone(snr_db, n=512, f=0.07, seed=3):\n    # generate unit-power sine then scale noise\n    amp = math.sqrt(2.0)\n    sig = [amp * math.sin(2*math.pi*f*i) for i in range(n)]\n    # LCG noise\n    s = seed & 0xFFFFFFFF\n    noise = []\n    for _ in range(n):\n        s = (1664525 * s + 1013904223) & 0xFFFFFFFF\n        noise.append(s / 0xFFFFFFFF * 2 - 1)\n    # normalize noise power ~1\n    npow = sum(v*v for v in noise)/n\n    noise = [v/math.sqrt(npow) for v in noise]\n    snr_lin = 10 ** (snr_db/10)\n    # signal power ~1 already for sine amp sqrt(2)\n    scale = 1.0 / math.sqrt(snr_lin)\n    y = [sig[i] + scale*noise[i] for i in range(n)]\n    return y\n\ndef run():\n    for true in (6.0, 12.0, 20.0):\n        y = _tone(true)\n        hat = float(solution.estimate_snr_db(y))\n        assert math.isfinite(hat)\n        assert abs(hat - true) <= 3.0, (true, hat)\n"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "pid_step",
+  "title": "Discrete PID on a plant step",
+  "difficulty": "medium",
+  "tags": ["control", "ee"],
+  "prompt": "Implement `simulate_pid(kp, ki, kd, setpoint, n_steps, dt=0.05)` in solution.py.\n\nPlant: first-order  dx/dt = -x + u , Euler integrated with step dt.\nController: standard positional PID on error e = setpoint - x, with output u clipped to [-2, 2].\nDerivative on measurement (use -kd * dx/dt approximation via previous x).\nInitial x=0, integral=0.\n\nReturn the list of x values length n_steps (after each control update).\nStdlib only.",
+  "public_tests_hint": "- len(traj)==n_steps\n- with decent gains, final value within 0.15 of setpoint\n- no NaNs",
+  "test_source": "import math\nimport solution\n\ndef run():\n    traj = solution.simulate_pid(2.5, 1.2, 0.05, setpoint=1.0, n_steps=120, dt=0.05)\n    assert isinstance(traj, (list, tuple)) and len(traj) == 120\n    assert all(isinstance(x, (int, float)) and math.isfinite(x) for x in traj)\n    assert abs(traj[-1] - 1.0) < 0.15, traj[-1]\n    # open-ish gains should still move\n    traj2 = solution.simulate_pid(0.8, 0.0, 0.0, setpoint=1.0, n_steps=80, dt=0.05)\n    assert traj2[-1] > 0.3\n"
+}
