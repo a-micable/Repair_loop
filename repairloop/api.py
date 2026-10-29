@@ -80,6 +80,20 @@ def leaderboard() -> dict[str, Any]:
     return {"models": store.leaderboard(), "tasks": store.task_stats()}
 
 
+@app.get("/curriculum")
+def curriculum() -> dict[str, Any]:
+    from .curriculum import as_dict, evaluate_curriculum
+
+    return as_dict(evaluate_curriculum())
+
+
+@app.get("/cinema")
+def cinema() -> list[dict[str, Any]]:
+    from .cinema import list_reels
+
+    return list_reels()
+
+
 @app.get("/runs")
 def runs(limit: int = 40) -> list[dict[str, Any]]:
     return Store().recent(limit=limit)

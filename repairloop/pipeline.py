@@ -16,6 +16,7 @@ from dataclasses import asdict
 from typing import Any, Callable
 
 from .config import estimate_cost_usd, load_settings
+from .distill import distill_success
 from .llm import NebiusClient
 from .session import AgentResult, run_session
 from .skills import format_skills, retrieve
@@ -214,7 +215,18 @@ def run_pipeline(
         result.model, result.prompt_tokens, result.completion_tokens
     )
 
-    # persist
+    # persist + optional skill distillation on PASS
+    distilled = None
+    if result.success and result.final_code.strip():
+        try:
+            distilled = str(
+                distill_success(
+                    task_id=task.id, code=result.final_code, model=result.model
+                )
+            )
+        except Exception:
+            distilled = None
+
     store = Store()
     store.record_run(
         {
@@ -233,6 +245,7 @@ def run_pipeline(
                 "tavily": tavily_on,
                 "research_tokens": research_tokens,
                 "brief_preview": brief[:400],
+                "distilled_skill": distilled,
             },
         }
     )
