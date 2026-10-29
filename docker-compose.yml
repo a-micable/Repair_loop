@@ -1,0 +1,24 @@
+services:
+  labforge-ui:
+    build: .
+    ports:
+      - "8501:8501"
+    env_file:
+      - .env
+    volumes:
+      - ./runs:/app/runs
+      - ./tasks:/app/tasks:ro
+      - ./skills:/app/skills:ro
+    command: ["streamlit", "run", "app.py", "--server.address=0.0.0.0", "--server.port=8501"]
+
+  labforge-api:
+    build: .
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    volumes:
+      - ./runs:/app/runs
+      - ./tasks:/app/tasks:ro
+      - ./skills:/app/skills:ro
+    command: ["uvicorn", "repairloop.api:app", "--host", "0.0.0.0", "--port", "8080"]
