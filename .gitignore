@@ -1,0 +1,15 @@
+.env
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.streamlit/secrets.toml
+workspace/
+runs/
+*.egg-info/
+dist/
+build/
+*.log
+.DS_Store
+repairloop-submit.zip
