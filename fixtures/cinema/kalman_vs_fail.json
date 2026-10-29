@@ -1,0 +1,15 @@
+{
+  "title": "1D Kalman — first attempt wrong gain, then PASS",
+  "task_id": "kalman_1d_update",
+  "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+  "success": true,
+  "frames": [
+    {"delay_sec": 0.35, "kind": "stage", "text": "CODE — draft kalman_update"},
+    {"delay_sec": 0.45, "kind": "tool", "text": "write_file solution.py"},
+    {"delay_sec": 0.5, "kind": "test", "text": "grader=FAIL — P did not decrease (used K=R/(P+R))"},
+    {"delay_sec": 0.4, "kind": "critic", "text": "Critic: gain must be P/(P+R), not R/(P+R)."},
+    {"delay_sec": 0.4, "kind": "tool", "text": "replace_in_file K = P/(P+R)"},
+    {"delay_sec": 0.45, "kind": "test", "text": "grader=PASS"},
+    {"delay_sec": 0.3, "kind": "code", "text": "def kalman_update(x, P, z, R):\n    K = P/(P+R)\n    return x+K*(z-x), (1-K)*P\n"}
+  ]
+}

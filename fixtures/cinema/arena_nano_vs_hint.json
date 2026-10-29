@@ -1,0 +1,13 @@
+{
+  "title": "Arena replay — Nano clears thermistor_beta in 2 iters",
+  "task_id": "thermistor_beta",
+  "model": "arena/nano-demo",
+  "success": true,
+  "frames": [
+    {"delay_sec": 0.3, "kind": "arena", "text": "LEFT  nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B"},
+    {"delay_sec": 0.35, "kind": "tool", "text": "web_search 'NTC thermistor beta two point formula'"},
+    {"delay_sec": 0.4, "kind": "research", "text": "beta = ln(R1/R2)/(1/T1-1/T2)  T in kelvin"},
+    {"delay_sec": 0.35, "kind": "test", "text": "LEFT grader=PASS iters=2 cost~$0.002"},
+    {"delay_sec": 0.3, "kind": "arena", "text": "WINNER left — fewer iterations"}
+  ]
+}

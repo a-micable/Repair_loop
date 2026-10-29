@@ -1,0 +1,44 @@
+{
+  "title": "RC τ recovery — research → repair → PASS",
+  "task_id": "rc_step_response",
+  "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+  "success": true,
+  "pipeline": "research-code-critic",
+  "frames": [
+    {
+      "delay_sec": 0.4,
+      "kind": "stage",
+      "text": "RESEARCH — skill hit: rc_charging.md"
+    },
+    {
+      "delay_sec": 0.5,
+      "kind": "research",
+      "text": "v(t)=Vinf*(1-exp(-t/tau)); tau=-t/ln(1-v/Vinf) on mid-curve points"
+    },
+    {
+      "delay_sec": 0.4,
+      "kind": "tool",
+      "text": "write_file solution.py (412 bytes)"
+    },
+    {
+      "delay_sec": 0.5,
+      "kind": "test",
+      "text": "grader=FAIL — AssertionError: rel_err=0.11 on tau=0.05"
+    },
+    {
+      "delay_sec": 0.4,
+      "kind": "tool",
+      "text": "replace_in_file — average more mid-curve samples; clamp Vinf to max(v)"
+    },
+    {
+      "delay_sec": 0.5,
+      "kind": "test",
+      "text": "grader=PASS"
+    },
+    {
+      "delay_sec": 0.3,
+      "kind": "code",
+      "text": "def fit_rc_tau(t, v):\n    vinf = max(v)\n    acc = []\n    for ti, vi in zip(t, v):\n        if ti > 0 and 0.15*vinf < vi < 0.92*vinf:\n            r = 1 - vi/vinf\n            if 0 < r < 1:\n                acc.append(-ti / __import__('math').log(r))\n    return sum(acc)/len(acc)\n"
+    }
+  ]
+}
