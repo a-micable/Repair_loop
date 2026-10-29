@@ -1,0 +1,9 @@
+{
+  "id": "heat_1d_explicit",
+  "title": "1D heat equation explicit step",
+  "difficulty": "medium",
+  "tags": ["pde", "physics", "thermal"],
+  "prompt": "Implement `heat_step(u, alpha, dx, dt)` in solution.py.\n\nOne explicit FTCS step for the 1D heat equation on an interior of a Dirichlet rod.\n`u` is a list including boundary values (fixed). Return a new list of same length:\nboundaries copied, interiors:\n  u_new[i] = u[i] + r*(u[i-1] - 2*u[i] + u[i+1]) with r = alpha*dt/dx^2.\nDo not modify the input list. Stdlib only.",
+  "public_tests_hint": "- boundaries unchanged\n- matches analytic FTCS within 1e-12 on public grids\n- input not mutated",
+  "test_source": "import solution\n\ndef run():\n    u = [0.0, 1.0, 2.0, 1.0, 0.0]\n    alpha, dx, dt = 0.01, 1.0, 0.1\n    r = alpha*dt/(dx*dx)\n    out = solution.heat_step(u, alpha, dx, dt)\n    assert u == [0.0, 1.0, 2.0, 1.0, 0.0]\n    assert out[0]==0.0 and out[-1]==0.0\n    expect = [0.0]\n    for i in range(1,4):\n        expect.append(u[i] + r*(u[i-1]-2*u[i]+u[i+1]))\n    expect.append(0.0)\n    assert all(abs(a-b)<1e-12 for a,b in zip(out, expect))\n"
+}

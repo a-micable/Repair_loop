@@ -1,0 +1,9 @@
+{
+  "id": "least_squares_line",
+  "title": "Ordinary least-squares line fit",
+  "difficulty": "easy",
+  "tags": ["stats", "regression", "math"],
+  "prompt": "Implement `fit_line(x, y)` in solution.py.\n\nReturn `(slope, intercept)` for the OLS fit y ≈ slope*x + intercept.\n`x` and `y` are equal-length lists of floats. Stdlib only.",
+  "public_tests_hint": "- exact on noiseless lines within 1e-9\n- handles negative slopes",
+  "test_source": "import solution\n\ndef run():\n    x = [0.0, 1.0, 2.0, 3.0]\n    y = [1.0, 3.0, 5.0, 7.0]  # 2x+1\n    m, b = solution.fit_line(x, y)\n    assert abs(m-2.0) < 1e-9 and abs(b-1.0) < 1e-9\n    x2 = [1.0, 2.0, 3.0]\n    y2 = [5.0, 3.0, 1.0]  # -2x+7\n    m2, b2 = solution.fit_line(x2, y2)\n    assert abs(m2+2.0) < 1e-9 and abs(b2-7.0) < 1e-9\n"
+}

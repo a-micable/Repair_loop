@@ -1,0 +1,9 @@
+{
+  "id": "projectile_range",
+  "title": "Ideal projectile range",
+  "difficulty": "easy",
+  "tags": ["physics", "mechanics"],
+  "prompt": "Implement `projectile_range(v0, angle_deg, g=9.81)` in solution.py.\n\nFlat ground, no drag: R = v0^2 * sin(2*theta) / g.\nReturn range in meters. Stdlib math.",
+  "public_tests_hint": "- 45 degrees maximizes range for fixed v0\n- matches analytic within 1e-9",
+  "test_source": "import math\nimport solution\n\ndef run():\n    r = float(solution.projectile_range(50.0, 45.0))\n    expect = (50.0**2) * math.sin(math.radians(90.0)) / 9.81\n    assert abs(r-expect) < 1e-9\n    r1 = float(solution.projectile_range(40.0, 30.0))\n    r2 = float(solution.projectile_range(40.0, 60.0))\n    assert abs(r1-r2) < 1e-9\n"
+}

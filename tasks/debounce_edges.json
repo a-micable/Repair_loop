@@ -1,0 +1,9 @@
+{
+  "id": "debounce_edges",
+  "title": "Debounce a digital signal",
+  "difficulty": "medium",
+  "tags": ["embedded", "ee", "signal"],
+  "prompt": "Implement `debounce(samples, window)` in solution.py.\n\n`samples` is a list of 0/1 ints. Return a same-length list where each output sample is the majority vote over the last `window` input samples (or fewer at the start). Ties → 1. Stdlib only.",
+  "public_tests_hint": "- length preserved\n- stable regions unchanged for odd windows\n- short glitches suppressed",
+  "test_source": "import solution\n\ndef run():\n    s = [0,0,1,0,0,1,1,1,0,1,1]\n    out = solution.debounce(s, 3)\n    assert len(out)==len(s)\n    assert out == [0,0,0,0,0,0,1,1,1,1,1] or out[6:]==[1,1,1,1,1]\n    # stronger check: compute expected\n    expect=[]\n    for i in range(len(s)):\n        chunk=s[max(0,i-3+1):i+1]\n        ones=sum(chunk)\n        zeros=len(chunk)-ones\n        expect.append(1 if ones>=zeros else 0)\n    assert out==expect\n"
+}

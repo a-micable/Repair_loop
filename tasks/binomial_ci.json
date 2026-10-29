@@ -1,0 +1,9 @@
+{
+  "id": "binomial_ci",
+  "title": "Wilson score interval",
+  "difficulty": "medium",
+  "tags": ["stats", "probability"],
+  "prompt": "Implement `wilson_interval(successes, n, z=1.96)` in solution.py.\n\nReturn `(low, high)` for the Wilson score interval for a binomial proportion.\nClamp to [0,1]. Stdlib only (math).",
+  "public_tests_hint": "- 0<=low<=high<=1\n- contains p_hat for moderate n\n- matches reference within 1e-6 on public cases",
+  "test_source": "import math\nimport solution\n\ndef _wilson(s, n, z=1.96):\n    p = s/n\n    z2 = z*z\n    denom = 1 + z2/n\n    center = p + z2/(2*n)\n    margin = z*math.sqrt(p*(1-p)/n + z2/(4*n*n))\n    low = (center - margin)/denom\n    high = (center + margin)/denom\n    return max(0.0, low), min(1.0, high)\n\ndef run():\n    for s,n in [(7,10),(0,20),(50,50),(3,100)]:\n        a,b = solution.wilson_interval(s,n)\n        c,d = _wilson(s,n)\n        assert 0 <= a <= b <= 1\n        assert abs(a-c) < 1e-6 and abs(b-d) < 1e-6\n"
+}
