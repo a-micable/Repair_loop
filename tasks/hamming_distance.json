@@ -1,0 +1,12 @@
+{
+  "id": "hamming_distance",
+  "title": "Hamming distance of bitstrings",
+  "difficulty": "easy",
+  "tags": [
+    "info-theory",
+    "dsp"
+  ],
+  "prompt": "Implement `hamming(a, b)` for equal-length 0/1 strings (or equal-length int lists of 0/1). Return int distance.",
+  "public_tests_hint": "- identical \u2192 0\n- single flip \u2192 1",
+  "test_source": "import solution\n\ndef run():\n    assert solution.hamming('000','000')==0\n    assert solution.hamming('1010','0010')==1\n    assert solution.hamming([1,1,0],[0,1,1])==2\n"
+}

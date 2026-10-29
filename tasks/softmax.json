@@ -1,0 +1,12 @@
+{
+  "id": "softmax",
+  "title": "Numerically stable softmax",
+  "difficulty": "medium",
+  "tags": [
+    "ml",
+    "numerics"
+  ],
+  "prompt": "Implement `softmax(logits)` returning a probability list that sums to 1. Use max-subtraction for stability. Stdlib math.",
+  "public_tests_hint": "- sums to 1\n- argmax preserved\n- handles large logits",
+  "test_source": "import math\nimport solution\n\ndef run():\n    p=solution.softmax([1.0,2.0,3.0])\n    assert abs(sum(p)-1)<1e-9\n    assert p.index(max(p))==2\n    p2=solution.softmax([1000.0,1000.0,1000.0])\n    assert all(math.isfinite(x) for x in p2) and abs(sum(p2)-1)<1e-9\n"
+}

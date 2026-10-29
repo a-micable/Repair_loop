@@ -1,0 +1,12 @@
+{
+  "id": "newton_sqrt",
+  "title": "Newton square root",
+  "difficulty": "medium",
+  "tags": [
+    "numerics",
+    "math"
+  ],
+  "prompt": "Implement `newton_sqrt(x, iters=20)` for x>=0 using Newton iteration starting from x or 1. Return float.",
+  "public_tests_hint": "- sqrt(9)\u22483\n- sqrt(2) within 1e-10 of math.sqrt",
+  "test_source": "import math\nimport solution\n\ndef run():\n    assert abs(solution.newton_sqrt(9)-3)<1e-10\n    assert abs(solution.newton_sqrt(2)-math.sqrt(2))<1e-10\n    assert solution.newton_sqrt(0)==0\n"
+}

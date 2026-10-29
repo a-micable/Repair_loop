@@ -1,0 +1,12 @@
+{
+  "id": "impedance_series_parallel",
+  "title": "Series/parallel resistor network",
+  "difficulty": "easy",
+  "tags": [
+    "ee",
+    "circuits"
+  ],
+  "prompt": "Implement `req(series, parallels)` where `series` is a list of ohms in series, `parallels` is a list of parallel groups (each a list of ohms). Total = series sum + sum of parallel equivalents. Empty parallel groups ignored.",
+  "public_tests_hint": "- series-only works\n- two 10\u03a9 parallel \u2192 5\u03a9",
+  "test_source": "import solution\n\ndef run():\n    assert abs(solution.req([2,3],[])-5)<1e-12\n    assert abs(solution.req([],[ [10,10] ])-5)<1e-12\n    assert abs(solution.req([1],[ [4,4,2] ])-2)<1e-12\n"
+}

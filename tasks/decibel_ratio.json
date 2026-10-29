@@ -1,0 +1,12 @@
+{
+  "id": "decibel_ratio",
+  "title": "Power and amplitude dB",
+  "difficulty": "easy",
+  "tags": [
+    "ee",
+    "dsp"
+  ],
+  "prompt": "Implement `db_power(p, p_ref)` and `db_amplitude(a, a_ref)` returning 10 log10 and 20 log10 ratios respectively.",
+  "public_tests_hint": "- 2x power \u2192 ~3.01 dB\n- 2x amplitude \u2192 ~6.02 dB",
+  "test_source": "import math\nimport solution\n\ndef run():\n    assert abs(solution.db_power(2.0,1.0)-10*math.log10(2))<1e-12\n    assert abs(solution.db_amplitude(2.0,1.0)-20*math.log10(2))<1e-12\n"
+}

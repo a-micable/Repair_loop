@@ -1,0 +1,12 @@
+{
+  "id": "entropy_bits",
+  "title": "Shannon entropy in bits",
+  "difficulty": "medium",
+  "tags": [
+    "info-theory",
+    "stats"
+  ],
+  "prompt": "Implement `entropy_bits(probs)` for a discrete distribution (list of probs summing ~1). Ignore zero bins. Return bits (log2).",
+  "public_tests_hint": "- fair coin \u2192 1 bit\n- deterministic \u2192 0",
+  "test_source": "import math\nimport solution\n\ndef run():\n    assert abs(solution.entropy_bits([0.5,0.5])-1.0)<1e-9\n    assert abs(solution.entropy_bits([1.0,0.0]))<1e-9\n    h=solution.entropy_bits([0.25]*4)\n    assert abs(h-2.0)<1e-9\n"
+}

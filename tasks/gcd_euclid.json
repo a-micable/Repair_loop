@@ -1,0 +1,12 @@
+{
+  "id": "gcd_euclid",
+  "title": "Euclidean GCD",
+  "difficulty": "easy",
+  "tags": [
+    "math",
+    "algorithms"
+  ],
+  "prompt": "Implement `gcd(a, b)` returning the non-negative GCD. Stdlib only.",
+  "public_tests_hint": "- gcd(0,0)==0\n- matches math.gcd on public pairs",
+  "test_source": "import math\nimport solution\n\ndef run():\n    assert solution.gcd(0,0)==0\n    for a,b in [(12,18),(100,35),(-14,21),(0,9)]:\n        assert solution.gcd(a,b)==math.gcd(a,b)\n"
+}

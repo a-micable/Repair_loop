@@ -1,0 +1,12 @@
+{
+  "id": "trap_integral",
+  "title": "Trapezoidal integration",
+  "difficulty": "easy",
+  "tags": [
+    "numerics",
+    "math"
+  ],
+  "prompt": "Implement `trapz(y, dx)` \u2014 composite trapezoid rule on equally spaced samples with step dx. Return float.",
+  "public_tests_hint": "- integrates y=1 \u2192 length*dx\n- integrates linear ramp accurately",
+  "test_source": "import solution\n\ndef run():\n    y=[1,1,1,1]\n    assert abs(solution.trapz(y,0.5)-1.5)<1e-12\n    y2=[0,1,2,3]\n    assert abs(solution.trapz(y2,1.0)-4.5)<1e-12\n"
+}

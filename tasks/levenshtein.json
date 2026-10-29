@@ -1,0 +1,12 @@
+{
+  "id": "levenshtein",
+  "title": "Levenshtein edit distance",
+  "difficulty": "medium",
+  "tags": [
+    "algorithms",
+    "nlp"
+  ],
+  "prompt": "Implement `edit_distance(a, b)` classic Levenshtein distance (insert/delete/substitute cost 1).",
+  "public_tests_hint": "- identical 0\n- kitten/sitting \u2192 3",
+  "test_source": "import solution\n\ndef run():\n    assert solution.edit_distance('a','a')==0\n    assert solution.edit_distance('kitten','sitting')==3\n    assert solution.edit_distance('','abc')==3\n"
+}
