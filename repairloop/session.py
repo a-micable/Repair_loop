@@ -6,6 +6,8 @@ from typing import Any, Callable
 
 from .config import estimate_cost_usd, load_settings
 from .llm import NebiusClient
+from . import memory as failmem
+from . import metrics
 from .prompts import SYSTEM, extract_python, user_task
 from .sandbox import Workspace
 from .tasks import Task, load_task
@@ -53,12 +55,20 @@ def run_session(
     )
     transcript.event("task", title=task.title, difficulty=task.difficulty)
 
+    prior = failmem.recall(
+        settings.runs_dir, task_id=task.id, tags=task.tags or [], limit=4
+    )
+    mem_block = failmem.format_memory(prior)
+
     messages: list[dict[str, Any]] = [
         {"role": "system", "content": SYSTEM},
         {
             "role": "user",
             "content": user_task(
-                task.prompt, task.public_tests_hint, tavily_on=allow_tavily
+                task.prompt,
+                task.public_tests_hint,
+                tavily_on=allow_tavily,
+                memory_block=mem_block,
             ),
         },
     ]
@@ -202,6 +212,21 @@ def run_session(
             client.meter.prompt_tokens,
             client.meter.completion_tokens,
         )
+        if not success:
+            failmem.remember_failure(
+                settings.runs_dir,
+                task_id=task.id,
+                tags=task.tags or [],
+                stderr=tools.last_grader_stderr,
+                hint="grader failed after tool loop",
+            )
+        metrics.observe_run(
+            success=success,
+            prompt_tokens=client.meter.prompt_tokens,
+            completion_tokens=client.meter.completion_tokens,
+            cost_usd=cost,
+            tool_calls=len(tools.history),
+        )
         path = transcript.finish(
             success=success,
             iterations=iterations,
@@ -223,6 +248,18 @@ def run_session(
         )
     except Exception as exc:  # noqa: BLE001
         transcript.finish(success=False, error=str(exc))
+        cost = estimate_cost_usd(
+            client.model,
+            client.meter.prompt_tokens,
+            client.meter.completion_tokens,
+        )
+        metrics.observe_run(
+            success=False,
+            prompt_tokens=client.meter.prompt_tokens,
+            completion_tokens=client.meter.completion_tokens,
+            cost_usd=cost,
+            tool_calls=len(tools.history),
+        )
         return AgentResult(
             success=False,
             task_id=task.id,
@@ -232,11 +269,7 @@ def run_session(
             tool_events=tools.history,
             prompt_tokens=client.meter.prompt_tokens,
             completion_tokens=client.meter.completion_tokens,
-            est_cost_usd=estimate_cost_usd(
-                client.model,
-                client.meter.prompt_tokens,
-                client.meter.completion_tokens,
-            ),
+            est_cost_usd=cost,
             transcript_path=str(transcript.path),
             error=str(exc),
         )

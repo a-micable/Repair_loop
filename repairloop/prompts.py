@@ -12,18 +12,27 @@ Rules:
 """
 
 
-def user_task(prompt: str, public_checks: str, *, tavily_on: bool) -> str:
+def user_task(
+    prompt: str,
+    public_checks: str,
+    *,
+    tavily_on: bool,
+    memory_block: str = "",
+) -> str:
     extra = ""
     if tavily_on:
         extra = (
             "\nYou may call web_search for a quick formula check "
             "(e.g. RC charging equation, array delay geometry).\n"
         )
+    mem = ""
+    if memory_block.strip():
+        mem = f"\n# Prior failure memory\n{memory_block}\n"
     return (
         f"# Task\n\n{prompt}\n\n"
         f"# Public checks (grader will enforce these)\n\n{public_checks}\n"
-        f"{extra}\n"
-        "Write solution.py with tools, then run_tests."
+        f"{extra}{mem}\n"
+        "Prefer replace_in_file for small fixes. Call run_tests when ready."
     )
 
 
