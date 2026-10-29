@@ -1,38 +1,23 @@
-labforge / repairloop — notes
-=============================
+labforge v1.0 — notes
+=====================
 
-this grew out of terminal-bench science task work.
-v0.3 was a single repair loop. that wasn't enough for a real submission.
-v0.5 is the product shape:
+this is no longer a toy repair loop.
+35 oracle-backed STEM tasks, multi-stage pipeline, edit tools,
+failure memory, bakeoffs, prometheus, compose, authoring UI.
 
-  skills + tavily research
-  tool coder on token factory / nemotron
-  critic retry
-  sqlite leaderboard
-  fastapi + multipage ui
-  15 tasks with oracles + CI
+verify before claiming anything:
+  python -m repairloop.eval --oracles-only
+  pytest -q
 
-why graders matter
-------------------
-if the agent can "finish" without run_tests PASS, it's a chatbot.
-every demo path should end on a grader line.
+push (rewrote history — force once):
+  git push -u origin main --force
 
-tavily
-------
-one query per task in research. don't spray credits.
-graders stay offline on purpose.
+then:
+  NEBIUS_API_KEY in .env
+  streamlit run app.py
+  record video / submit SUBMIT.md
 
-demo order for video
---------------------
-1. oracles-only
-2. pipeline rc_step_response with tavily on
-3. leaderboard
-4. api /health
-
-todo
-----
-[ ] NEBIUS_API_KEY live run
-[ ] TAVILY_API_KEY for prize path
-[ ] push a-micable/repairloop (or labforge)
-[ ] youtube <3min
-[ ] submit before Oct 30 10:00am PT
+domains covered
+---------------
+ee/circuits, dsp/audio, control, optics, thermal/nuclear,
+numerics/ODE, stats/info-theory, algorithms/geometry
