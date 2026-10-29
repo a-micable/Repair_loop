@@ -1,0 +1,9 @@
+{
+  "id": "wire_gauge_drop",
+  "title": "DC voltage drop on copper wire",
+  "difficulty": "easy",
+  "tags": ["ee", "circuits"],
+  "prompt": "Implement `voltage_drop(length_m, diameter_mm, current_a, resistivity=1.68e-8)` in solution.py.\n\nRound-trip DC drop for a two-conductor run: V = I * R_roundtrip, R = rho * L_total / A,\nwhere L_total = 2 * length_m and A is cross-section from diameter in mm.\nReturn volts (float). Stdlib only (math).",
+  "public_tests_hint": "- positive for positive current\n- matches analytic within 1e-9 on public cases\n- doubles when length doubles",
+  "test_source": "import math\nimport solution\n\ndef run():\n    v = float(solution.voltage_drop(10.0, 1.628, 5.0))\n    # AWG 14 ~1.628mm\n    A = math.pi * (1.628e-3/2)**2\n    expect = 5.0 * (1.68e-8 * 20.0 / A)\n    assert abs(v - expect) < 1e-9, (v, expect)\n    v2 = float(solution.voltage_drop(20.0, 1.628, 5.0))\n    assert abs(v2 - 2*v) < 1e-9\n"
+}

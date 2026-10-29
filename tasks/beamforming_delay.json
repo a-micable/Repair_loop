@@ -1,0 +1,9 @@
+{
+  "id": "beamforming_delay",
+  "title": "ULA time-delay beamformer",
+  "track_fit": "Coding & Agentic Engineering",
+  "difficulty": "medium",
+  "prompt": "Implement `steering_delays(n_sensors, d, c, theta_deg)` in solution.py.\n\nUniform linear array along x-axis, sensors at positions i*d for i=0..n_sensors-1.\nPlane wave arrives from angle theta_deg (degrees), measured from array broadside (0° = normal incidence).\nSpeed of sound/light is `c`.\n\nReturn a list of time delays (seconds), one per sensor, relative to sensor 0, such that delaying each channel by that amount aligns the wavefront (conventional delay-and-sum).\nUse only the Python standard library. Import math if needed.",
+  "public_tests_hint": "- length == n_sensors\n- delay[0] == 0\n- for broadside (theta=0) all delays are ~0\n- delays increase (or decrease) consistently with geometry",
+  "test_source": "import math\nimport solution\n\ndef run():\n    d = 0.05\n    c = 343.0\n    n = 4\n    delays0 = solution.steering_delays(n, d, c, 0.0)\n    assert len(delays0) == n\n    assert abs(delays0[0]) < 1e-12\n    assert all(abs(x) < 1e-9 for x in delays0), f'broadside should be ~0: {delays0}'\n\n    theta = 30.0\n    delays = solution.steering_delays(n, d, c, theta)\n    assert len(delays) == n and abs(delays[0]) < 1e-12\n    # path difference to sensor i is i*d*sin(theta)\n    for i in range(n):\n        expect = (i * d * math.sin(math.radians(theta))) / c\n        assert abs(delays[i] - expect) < 1e-9, f'i={i}: {delays[i]} vs {expect}'\n"
+}

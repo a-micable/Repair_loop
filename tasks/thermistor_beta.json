@@ -1,0 +1,9 @@
+{
+  "id": "thermistor_beta",
+  "title": "Thermistor beta from two calibration points",
+  "difficulty": "easy",
+  "tags": ["sensors", "physics"],
+  "prompt": "Implement `beta_from_points(r1, t1_c, r2, t2_c)` in solution.py.\n\nNTC beta model: R = R0 * exp(beta * (1/T - 1/T0)) with T in kelvin.\nGiven two calibration points (resistance ohms, temperature °C), return beta (kelvin).\nStdlib only (math).",
+  "public_tests_hint": "- returns positive float\n- within 1% of analytic beta on public pairs",
+  "test_source": "import math\nimport solution\n\ndef _R(beta, r0, t0_c, t_c):\n    T0 = t0_c + 273.15\n    T = t_c + 273.15\n    return r0 * math.exp(beta * (1/T - 1/T0))\n\ndef run():\n    beta_true = 3950.0\n    r0, t0 = 10000.0, 25.0\n    r1 = _R(beta_true, r0, t0, 25.0)\n    r2 = _R(beta_true, r0, t0, 85.0)\n    hat = float(solution.beta_from_points(r1, 25.0, r2, 85.0))\n    assert hat > 0\n    assert abs(hat - beta_true) / beta_true < 0.01, hat\n"
+}

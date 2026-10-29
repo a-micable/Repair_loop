@@ -1,0 +1,9 @@
+{
+  "id": "rc_step_response",
+  "title": "RC circuit step-response fit",
+  "track_fit": "Coding & Agentic Engineering",
+  "difficulty": "easy",
+  "prompt": "Implement `fit_rc_tau(t, v)` in solution.py.\n\n`t` and `v` are equal-length lists of floats: time (seconds) and capacitor voltage for a series RC charging toward Vinf after a step.\nModel: v(t) = Vinf * (1 - exp(-t / tau)) for t >= 0, with V(0)=0.\n\nReturn tau > 0 (seconds) as a float.\nUse only the Python standard library.",
+  "public_tests_hint": "- returns a positive float\n- relative error |tau_hat - tau| / tau < 0.08 on the public cases",
+  "test_source": "import math\nimport solution\n\ndef _make(tau, vinf=5.0, n=80):\n    t = [i * (5 * tau) / (n - 1) for i in range(n)]\n    v = [vinf * (1.0 - math.exp(-ti / tau)) for ti in t]\n    return t, v\n\ndef run():\n    for tau in (0.01, 0.05, 0.2):\n        t, v = _make(tau)\n        hat = float(solution.fit_rc_tau(t, v))\n        assert hat > 0, 'tau must be positive'\n        err = abs(hat - tau) / tau\n        assert err < 0.08, f'tau={tau}, hat={hat}, rel_err={err}'\n"
+}
