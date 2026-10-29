@@ -1,49 +1,40 @@
 # LabForge
 
-**Nebius × NVIDIA Global AI Hackathon** · Track: **Coding & Agentic Engineering**  
-Tavily-eligible when `TAVILY_API_KEY` is set.
+**Nebius × NVIDIA Global AI Hackathon** · **Coding & Agentic Engineering**  
+Tavily-eligible · Judge one-pager: [`JUDGES.md`](JUDGES.md)
 
-LabForge is a full STEM **coding-agent workbench**: research → tool-using coder → hidden grader → critic, with transcripts, leaderboards, bakeoffs, and a 35-task oracle-backed suite.
+> Agents that must **pass a hidden STEM grader** — with a Demo Cinema so judges can watch a PASS **without an API key**.
 
-Built from the same instincts as terminal / agent eval harnesses — demos that never call `run_tests` don’t count.
+## Why this wins attention
 
-## Highlights (v1.0)
-
-- **35 graded tasks** (EE, DSP, control, optics, numerics, stats, algorithms…)
-- **Oracle CI** — every grader is solvable offline
-- **Pipeline** — skills + optional Tavily research → tools (`write_file`, `replace_in_file`, `run_tests`, …) → critic retry
-- **Failure memory** across runs
-- **Prometheus metrics** + SQLite leaderboard
-- **Bakeoff** CLI for multi-model comparisons
-- **FastAPI** + multipage **Streamlit** + **docker-compose**
-- Task authoring UI + generator script
+| Feature | What judges see |
+|---|---|
+| **Demo Cinema** | Offline repair trajectories (no key) |
+| **Model Arena** | Nano vs Super, same grader, winner by PASS/iters/cost |
+| **Research Dossier** | Skills + **Tavily** + Nemotron brief |
+| **45 tasks** | Oracle-backed; CI proves fairness |
+| **Skill distill** | PASSes become reusable skill cards |
+| **Curriculum** | Harder tiers unlock after easy wins |
+| **Bakeoff / Prometheus / API** | Real eval infrastructure |
 
 ## Quick start
 
 ```bash
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt && pip install -e .
-cp .env.example .env   # set NEBIUS_API_KEY (+ optional TAVILY_API_KEY)
+cp .env.example .env   # NEBIUS_API_KEY=...  TAVILY_API_KEY=...
 
 streamlit run app.py
-# or
-uvicorn repairloop.api:app --port 8080
+# pages: Run · Leaderboard · Skills · Bench · Cinema · Arena · Dossier
+
+python -m repairloop.eval --oracles-only
+pytest -q
 docker compose up --build
 ```
 
-```bash
-python -m repairloop.cli tasks
-python -m repairloop.cli run rc_step_response --pipeline
-python -m repairloop.eval --oracles-only
-python -m repairloop.cli bench --pipeline --task rc_step_response --task thermistor_beta
-pytest -q
-```
-
-See `docs/TASK_CATALOG.md`, `docs/architecture.md`, `SUBMIT.md`.
-
 ## Stack
 
-Nebius Token Factory · NVIDIA Nemotron · Tavily (optional) · Python 3.11+
+Nebius Token Factory · NVIDIA Nemotron · Tavily · FastAPI · Streamlit · Docker
 
 ## License
 

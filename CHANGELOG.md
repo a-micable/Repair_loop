@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.0
+- Demo Cinema (offline judge trajectories)
+- Model Arena (Nano vs Super)
+- Research Dossier (skills + Tavily + Nemotron)
+- Skill distillation on PASS
+- Curriculum unlocks
+- +10 hard tasks (45 total)
+
 ## 1.0.0
 - 35-task oracle-backed suite
 - surgical edit tools (`replace_in_file`, `replace_lines`)

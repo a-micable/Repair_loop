@@ -1,39 +1,47 @@
 # Devpost — LabForge
 
 **Track:** Coding & Agentic Engineering  
-**Also:** Best Use of Tavily (if enabled)
+**Also claim:** Best Use of Tavily
 
 ## Name
 LabForge
 
 ## Tagline
-A 35-task STEM coding-agent workbench: research → tools → hidden grader → critic, on NVIDIA Nemotron via Nebius Token Factory.
+45-task STEM coding agents that must pass hidden graders — Demo Cinema, Nano-vs-Super Arena, and Tavily research dossiers on Nebius Token Factory / Nemotron.
 
 ## Built with
 Nebius Token Factory, NVIDIA Nemotron, Tavily, Python, FastAPI, Streamlit, Docker, Prometheus
 
 ## Description
 
-### What it does
-LabForge is a full agent workbench for scientific coding tasks. Agents must write Python, run it, and pass hidden graders across **35** oracle-backed tasks (circuits, DSP, control, optics, numerics, stats, algorithms).
+### The problem
+Hackathon coding agents usually dump untested code. Judges can’t tell if anything works.
 
-Pipeline: **skills + optional Tavily research** → **tool-using Nemotron coder** (write/replace/run/test) → **critic retry** → SQLite leaderboard + JSONL transcripts + Prometheus metrics. Includes bakeoff CLI, FastAPI, docker-compose, and a task authoring UI.
+### What LabForge does
+LabForge is a grader-first STEM agent workbench:
 
-### Why it matters
-Most hackathon “coding agents” dump untested code. LabForge mirrors terminal-bench style evaluation: **no PASS from the grader, no win.**
+1. **Research dossier** — local skill cards + optional **Tavily** search + Nemotron brief  
+2. **Tool-using coder** on Token Factory (`write_file`, surgical `replace_in_file`, `run_tests`, …)  
+3. **Hidden unit graders** across **45** tasks (EE, DSP, control, optics, numerics, mechanics, stats…)  
+4. **Critic retry** + **failure memory** + **skill distillation** on PASS  
+5. **Demo Cinema** — offline trajectories so judges see a full repair loop **without keys**  
+6. **Model Arena** — Nano vs Super head-to-head on the same grader  
+7. Bakeoff CLI, Prometheus metrics, FastAPI, docker-compose, curriculum unlocks  
+
+Every task has a reference oracle; CI runs `eval --oracles-only`.
 
 ### Nebius / NVIDIA
-Live Token Factory chat completions. Default Nemotron Nano; Super/Ultra via env.
+Live inference via Token Factory. Default Nemotron Nano; Super/Ultra configurable.
 
 ### Tavily
-Research stage issues a targeted formula search and injects results into the coder brief. Graders stay offline.
+Dossier + research stage issue targeted formula queries (not solution scraping). Graders stay offline.
 
 ## Feedback
-Token Factory’s OpenAI-compatible tools API made multi-tool repair practical. Nano is great for iteration cost; bakeoff mode compares models on the same suite. A hackathon preset for Nemotron+tools would help newcomers.
+Token Factory tool-calling made the repair loop practical. Demo Cinema is how we keep judging honest when credits/keys are awkward. A Nemotron+tools hackathon preset would help.
 
-## Video
-1. Home (35 tasks)  
-2. Oracle PASS scroll  
-3. Pipeline run with tools  
-4. Leaderboard + /metrics  
-5. Repo
+## Video script
+1. JUDGES.md / home tags (45 tasks, cinema, arena)  
+2. **Demo Cinema** play `rc_step_demo`  
+3. **Dossier** with Tavily  
+4. Live **Run** or **Arena** snippet  
+5. Oracle PASS in terminal + GitHub
