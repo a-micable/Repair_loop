@@ -1,0 +1,12 @@
+{
+  "id": "snell_refract",
+  "title": "Snell's law refraction angle",
+  "difficulty": "medium",
+  "tags": [
+    "physics",
+    "optics"
+  ],
+  "prompt": "Implement `refract_deg(n1, n2, theta1_deg)` returning theta2 in degrees via Snell's law. If TIR, return None.",
+  "public_tests_hint": "- n1=n2 \u2192 same angle\n- TIR returns None",
+  "test_source": "import math\nimport solution\n\ndef run():\n    assert abs(solution.refract_deg(1.0,1.0,30.0)-30.0)<1e-9\n    th=solution.refract_deg(1.0,1.5,30.0)\n    expect=math.degrees(math.asin(1.0/1.5*math.sin(math.radians(30))))\n    assert abs(th-expect)<1e-9\n    assert solution.refract_deg(1.5,1.0,50.0) is None\n"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "blackbody_peak",
+  "title": "Wien displacement peak wavelength",
+  "difficulty": "easy",
+  "tags": [
+    "physics",
+    "thermal"
+  ],
+  "prompt": "Implement `wien_peak_um(T_kelvin)` returning \u03bb_max in micrometers using b=2897.771955 \u03bcm\u00b7K.",
+  "public_tests_hint": "- 5800K near ~0.5 \u03bcm\n- cooler \u2192 longer wavelength",
+  "test_source": "import solution\n\ndef run():\n    lam=solution.wien_peak_um(5800.0)\n    assert abs(lam-2897.771955/5800.0)<1e-9\n    assert solution.wien_peak_um(3000.0)>lam\n"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "radioactive_decay",
+  "title": "Radioactive decay remaining fraction",
+  "difficulty": "easy",
+  "tags": [
+    "physics",
+    "nuclear"
+  ],
+  "prompt": "Implement `remaining_fraction(halflife, t)` = 0.5**(t/halflife).",
+  "public_tests_hint": "- one half-life \u2192 0.5\n- two \u2192 0.25",
+  "test_source": "import solution\n\ndef run():\n    assert abs(solution.remaining_fraction(10,10)-0.5)<1e-12\n    assert abs(solution.remaining_fraction(5,10)-0.25)<1e-12\n"
+}

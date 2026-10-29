@@ -1,0 +1,12 @@
+{
+  "id": "convex_hull_cross",
+  "title": "Cross product orientation",
+  "difficulty": "easy",
+  "tags": [
+    "geometry",
+    "algorithms"
+  ],
+  "prompt": "Implement `orient(ax,ay,bx,by,cx,cy)` returning sign of cross (B-A)\u00d7(C-A): 1 left, -1 right, 0 collinear (use a small epsilon 1e-12).",
+  "public_tests_hint": "- known CCW triangle \u2192 1\n- collinear \u2192 0",
+  "test_source": "import solution\n\ndef run():\n    assert solution.orient(0,0,1,0,0,1)==1\n    assert solution.orient(0,0,1,0,0,-1)==-1\n    assert solution.orient(0,0,1,0,2,0)==0\n"
+}

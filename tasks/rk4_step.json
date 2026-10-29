@@ -1,0 +1,13 @@
+{
+  "id": "rk4_step",
+  "title": "RK4 ODE step",
+  "difficulty": "hard",
+  "tags": [
+    "numerics",
+    "ode",
+    "physics"
+  ],
+  "prompt": "Implement `rk4_step(f, t, y, h)` one classical RK4 step for scalar ODE y'=f(t,y). `f` is a callable. Return y_{n+1}.",
+  "public_tests_hint": "- exact on y'=y over one small step within tolerance\n- order sanity vs Euler",
+  "test_source": "import math\nimport solution\n\ndef run():\n    f=lambda t,y: y\n    y0=1.0\n    h=0.01\n    y1=solution.rk4_step(f,0.0,y0,h)\n    expect=math.exp(h)\n    assert abs(y1-expect)<1e-8\n"
+}

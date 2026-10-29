@@ -1,0 +1,12 @@
+{
+  "id": "pid_aw_step",
+  "title": "PID with anti-windup clamp",
+  "difficulty": "hard",
+  "tags": [
+    "control",
+    "ee"
+  ],
+  "prompt": "Implement `pid_aw(kp, ki, kd, setpoint, n_steps, dt=0.05, umin=-1, umax=1)` like simulate_pid but freeze integral when u would saturate (conditional integration). Plant dx/dt=-x+u. Return x trajectory list.",
+  "public_tests_hint": "- length n_steps\n- stays finite\n- with high ki still settles near setpoint better than windup-prone case on public params",
+  "test_source": "import math\nimport solution\n\ndef run():\n    traj=solution.pid_aw(3.0, 8.0, 0.0, 1.0, 200, dt=0.02, umin=-1, umax=1)\n    assert len(traj)==200\n    assert all(math.isfinite(x) for x in traj)\n    assert abs(traj[-1]-1.0)<0.25\n"
+}

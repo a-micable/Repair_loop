@@ -1,0 +1,13 @@
+{
+  "id": "beam_width_ula",
+  "title": "ULA approximate beamwidth",
+  "difficulty": "medium",
+  "tags": [
+    "arrays",
+    "ee",
+    "rf"
+  ],
+  "prompt": "Implement `half_power_beamwidth_deg(n, d_over_lambda)` approximate broadside HPBW in degrees: 0.886 * (lambda/(N*d)) in radians converted to degrees (use math). `d_over_lambda` is d/\u03bb.",
+  "public_tests_hint": "- larger N \u2192 narrower beam\n- matches formula within 1e-9",
+  "test_source": "import math\nimport solution\n\ndef run():\n    bw=solution.half_power_beamwidth_deg(10,0.5)\n    expect=math.degrees(0.886/(10*0.5))\n    assert abs(bw-expect)<1e-9\n    assert solution.half_power_beamwidth_deg(20,0.5)<bw\n"
+}

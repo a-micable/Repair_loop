@@ -1,0 +1,12 @@
+{
+  "id": "fft_peak_freq",
+  "title": "DFT peak frequency estimate",
+  "difficulty": "medium",
+  "tags": [
+    "dsp",
+    "fft"
+  ],
+  "prompt": "Implement `peak_frequency_hz(y, fs)` using a DFT magnitude peak (skip DC). Return Hz. Stdlib cmath/math.",
+  "public_tests_hint": "- recovers a clean tone within 1 bin",
+  "test_source": "import cmath, math\nimport solution\n\ndef _tone(fs,f,n=256):\n    return [math.sin(2*math.pi*f*i/fs) for i in range(n)]\n\ndef run():\n    fs=128.0\n    y=_tone(fs, 16.0)\n    hat=solution.peak_frequency_hz(y, fs)\n    assert abs(hat-16.0) <= fs/len(y) + 1e-9\n"
+}

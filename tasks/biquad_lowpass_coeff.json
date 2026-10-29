@@ -1,0 +1,13 @@
+{
+  "id": "biquad_lowpass_coeff",
+  "title": "RBJ lowpass biquad coefficients",
+  "difficulty": "hard",
+  "tags": [
+    "dsp",
+    "audio",
+    "ee"
+  ],
+  "prompt": "Implement `lowpass_biquad(fc, fs, Q=1/math.sqrt(2))` returning (b0,b1,b2,a0,a1,a2) for the Audio EQ Cookbook lowpass. Use stdlib math. a0 should be 1 after normalization (divide all by a0).",
+  "public_tests_hint": "- a0==1\n- coefficients finite\n- matches cookbook within 1e-9 for a public fc/fs",
+  "test_source": "import math\nimport solution\n\ndef _ref(fc, fs, Q=1/math.sqrt(2)):\n    w0=2*math.pi*fc/fs\n    alpha=math.sin(w0)/(2*Q)\n    cosw=math.cos(w0)\n    b0=(1-cosw)/2\n    b1=1-cosw\n    b2=(1-cosw)/2\n    a0=1+alpha\n    a1=-2*cosw\n    a2=1-alpha\n    return tuple(v/a0 for v in (b0,b1,b2,a0,a1,a2))\n\ndef run():\n    got=solution.lowpass_biquad(1000.0,48000.0)\n    ref=_ref(1000.0,48000.0)\n    assert abs(got[3]-1.0)<1e-12\n    assert all(abs(a-b)<1e-9 for a,b in zip(got,ref))\n"
+}

@@ -1,0 +1,13 @@
+{
+  "id": "kalman_1d_update",
+  "title": "1D Kalman filter update",
+  "difficulty": "hard",
+  "tags": [
+    "estimation",
+    "control",
+    "ee"
+  ],
+  "prompt": "Implement `kalman_update(x, P, z, R)` for scalar state: compute Kalman gain, updated mean and variance. Return (x_new, P_new).",
+  "public_tests_hint": "- with tiny R, x moves toward z\n- P decreases",
+  "test_source": "import solution\n\ndef run():\n    x,P=0.0,1.0\n    xn,Pn=solution.kalman_update(x,P,10.0,0.01)\n    assert xn>5 and Pn<P\n    x2,P2=solution.kalman_update(0.0,1.0,10.0,1e6)\n    assert abs(x2)<1.0\n"
+}
